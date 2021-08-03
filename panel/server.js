@@ -1,4 +1,3 @@
-
 /*
  * @Author: Jerrykuku https://github.com/jerrykuku
  * @Date: 2021-1-8
@@ -15,7 +14,7 @@ var fs = require('fs');
 var { execSync, exec } = require('child_process');
 
 var rootPath = path.resolve(__dirname, '..')
-// config.sh 文件所在目录
+    // config.sh 文件所在目录
 var confFile = path.join(rootPath, 'config/config.sh');
 // config.sh.sample 文件所在目录
 var sampleFile = path.join(rootPath, 'sample/config.sh.sample');
@@ -77,7 +76,13 @@ function getCookie(response) {
 
 async function step1() {
     try {
-        s_token, cookies, guid, lsid, lstoken, okl_token, token = ""
+        s_token,
+        cookies,
+        guid,
+        lsid,
+        lstoken,
+        okl_token,
+        token = ""
         let timeStamp = (new Date()).getTime()
         let url = 'https://plogin.m.jd.com/cgi-bin/mm/new_login_entrance?lang=chs&appid=300&returnurl=https://wq.jd.com/passport/LoginRedirect?state=' + timeStamp + '&returnurl=https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&/myJd/home.action&source=wq_passport'
         const response = await got(url, {
@@ -88,13 +93,15 @@ async function step1() {
                 'Accept': 'application/json, text/plain, */*',
                 'Accept-Language': 'zh-cn',
                 'Referer': 'https://plogin.m.jd.com/login/login?appid=300&returnurl=https://wq.jd.com/passport/LoginRedirect?state=' + timeStamp + '&returnurl=https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&/myJd/home.action&source=wq_passport',
-                'User-Agent': 'jdapp;android;9.3.5;10;2346663656561603-4353564623932316;network/wifi;model/ONEPLUS A5010;addressid/138709979;aid/2dfceea045ed292a;oaid/;osVer/29;appBuild/86390;partner/jingdong;eufv/1;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36',
+                // 'User-Agent': 'jdapp;android;9.3.5;10;2346663656561603-4353564623932316;network/wifi;model/ONEPLUS A5010;addressid/138709979;aid/2dfceea045ed292a;oaid/;osVer/29;appBuild/86390;partner/jingdong;eufv/1;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 SP-engine/2.14.0 main%2F1.0 baiduboxapp/11.18.0.16 (Baidu; P2 13.3.1) NABar/0.0',
                 'Host': 'plogin.m.jd.com'
             }
         });
 
         praseSetCookies(response)
-    } catch (error) {
+    }
+    catch (error) {
         cookies = "";
         console.log(error.response.body);
     }
@@ -121,7 +128,8 @@ async function step2() {
                 'Accept': 'application/json, text/plain, */*',
                 'Cookie': cookies,
                 'Referer': 'https://plogin.m.jd.com/login/login?appid=300&returnurl=https://wqlogin2.jd.com/passport/LoginRedirect?state=' + timeStamp + '&returnurl=//home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&/myJd/home.action&source=wq_passport',
-                'User-Agent': 'jdapp;android;9.3.5;10;2346663656561603-4353564623932316;network/wifi;model/ONEPLUS A5010;addressid/138709979;aid/2dfceea045ed292a;oaid/;osVer/29;appBuild/86390;partner/jingdong;eufv/1;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36',
+                // 'User-Agent': 'jdapp;android;9.3.5;10;2346663656561603-4353564623932316;network/wifi;model/ONEPLUS A5010;addressid/138709979;aid/2dfceea045ed292a;oaid/;osVer/29;appBuild/86390;partner/jingdong;eufv/1;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 SP-engine/2.14.0 main%2F1.0 baiduboxapp/11.18.0.16 (Baidu; P2 13.3.1) NABar/0.0',
                 'Host': 'plogin.m.jd.com',
             }
         });
@@ -159,7 +167,8 @@ async function checkLogin() {
                 'Connection': 'Keep-Alive',
                 'Content-Type': 'application/x-www-form-urlencoded; Charset=UTF-8',
                 'Accept': 'application/json, text/plain, */*',
-                'User-Agent': 'jdapp;android;9.3.5;10;2346663656561603-4353564623932316;network/wifi;model/ONEPLUS A5010;addressid/138709979;aid/2dfceea045ed292a;oaid/;osVer/29;appBuild/86390;partner/jingdong;eufv/1;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36',
+                // 'User-Agent': 'jdapp;android;9.3.5;10;2346663656561603-4353564623932316;network/wifi;model/ONEPLUS A5010;addressid/138709979;aid/2dfceea045ed292a;oaid/;osVer/29;appBuild/86390;partner/jingdong;eufv/1;Mozilla/5.0 (Linux; Android 10; ONEPLUS A5010 Build/QKQ1.191014.012; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.120 MQQBrowser/6.2 TBS/045230 Mobile Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 SP-engine/2.14.0 main%2F1.0 baiduboxapp/11.18.0.16 (Baidu; P2 13.3.1) NABar/0.0',
             }
         });
 
@@ -272,7 +281,7 @@ function getLastModifyFilePath(dir) {
 
         var arr = fs.readdirSync(dir);
 
-        arr.forEach(function (item) {
+        arr.forEach(function(item) {
             var fullpath = path.join(dir, item);
             var stats = fs.statSync(fullpath);
             if (stats.isFile()) {
@@ -300,7 +309,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * 登录页面
  */
-app.get('/', function (request, response) {
+app.get('/', function(request, response) {
     if (request.session.loggedin) {
         response.redirect('./home');
     } else {
@@ -311,7 +320,7 @@ app.get('/', function (request, response) {
 /**
  * 用户名密码
  */
-app.get('/changepwd', function (request, response) {
+app.get('/changepwd', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/pwd.html'));
     } else {
@@ -323,9 +332,9 @@ app.get('/changepwd', function (request, response) {
  * 获取二维码链接
  */
 
-app.get('/qrcode', function (request, response) {
+app.get('/qrcode', function(request, response) {
     if (request.session.loggedin) {
-        (async () => {
+        (async() => {
             try {
                 await step1();
                 const qrurl = await step2();
@@ -347,9 +356,9 @@ app.get('/qrcode', function (request, response) {
  * 获取返回的cookie信息
  */
 
-app.get('/cookie', function (request, response) {
+app.get('/cookie', function(request, response) {
     if (request.session.loggedin && cookies != "") {
-        (async () => {
+        (async() => {
             try {
                 const cookie = await checkLogin();
                 if (cookie.body.errcode == 0) {
@@ -371,7 +380,7 @@ app.get('/cookie', function (request, response) {
  * 获取各种配置文件api
  */
 
-app.get('/api/config/:key', function (request, response) {
+app.get('/api/config/:key', function(request, response) {
     if (request.session.loggedin) {
         if (configString.indexOf(request.params.key) > -1) {
             switch (request.params.key) {
@@ -407,7 +416,7 @@ app.get('/api/config/:key', function (request, response) {
 /**
  * 首页 配置页面
  */
-app.get('/home', function (request, response) {
+app.get('/home', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/home.html'));
     } else {
@@ -419,7 +428,7 @@ app.get('/home', function (request, response) {
 /**
  * 对比 配置页面
  */
-app.get('/diff', function (request, response) {
+app.get('/diff', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/diff.html'));
     } else {
@@ -431,7 +440,7 @@ app.get('/diff', function (request, response) {
 /**
  * Share Code 页面
  */
-app.get('/shareCode', function (request, response) {
+app.get('/shareCode', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/shareCode.html'));
     } else {
@@ -443,7 +452,7 @@ app.get('/shareCode', function (request, response) {
 /**
  * crontab 配置页面
  */
-app.get('/crontab', function (request, response) {
+app.get('/crontab', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/crontab.html'));
     } else {
@@ -455,7 +464,7 @@ app.get('/crontab', function (request, response) {
 /**
  * 自定义脚本 页面
  */
-app.get('/diy', function (request, response) {
+app.get('/diy', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/diy.html'));
     } else {
@@ -467,7 +476,7 @@ app.get('/diy', function (request, response) {
 /**
  * 手动执行脚本 页面
  */
-app.get('/run', function (request, response) {
+app.get('/run', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/run.html'));
     } else {
@@ -506,7 +515,7 @@ app.post('/runCmd', function(request, response) {
 /**
  * 使用jsName获取最新的日志
  */
-app.get('/runLog/:jsName', function (request, response) {
+app.get('/runLog/:jsName', function(request, response) {
     if (request.session.loggedin) {
         let shareCodeFile = getLastModifyFilePath(path.join(rootPath, `log/${request.params.jsName}/`));
         if (shareCodeFile) {
@@ -525,10 +534,10 @@ app.get('/runLog/:jsName', function (request, response) {
 /**
  * auth
  */
-app.post('/auth', function (request, response) {
+app.post('/auth', function(request, response) {
     let username = request.body.username;
     let password = request.body.password;
-    fs.readFile(authConfigFile, 'utf8', function (err, data) {
+    fs.readFile(authConfigFile, 'utf8', function(err, data) {
         if (err) console.log(err);
         var con = JSON.parse(data);
         if (username && password) {
@@ -549,7 +558,7 @@ app.post('/auth', function (request, response) {
 /**
  * change pwd
  */
-app.post('/changepass', function (request, response) {
+app.post('/changepass', function(request, response) {
     if (request.session.loggedin) {
         let username = request.body.username;
         let password = request.body.password;
@@ -558,7 +567,7 @@ app.post('/changepass', function (request, response) {
             password: password
         }
         if (username && password) {
-            fs.writeFile(authConfigFile, JSON.stringify(config), function (err) {
+            fs.writeFile(authConfigFile, JSON.stringify(config), function(err) {
                 if (err) {
                     response.send({ err: 1, msg: "写入错误请重试!" });
                 } else {
@@ -578,7 +587,7 @@ app.post('/changepass', function (request, response) {
 /**
  * change pwd
  */
-app.get('/logout', function (request, response) {
+app.get('/logout', function(request, response) {
     request.session.destroy()
     response.redirect('/');
 
@@ -588,7 +597,7 @@ app.get('/logout', function (request, response) {
  * save config
  */
 
-app.post('/api/save', function (request, response) {
+app.post('/api/save', function(request, response) {
     if (request.session.loggedin) {
         let postContent = request.body.content;
         let postfile = request.body.name;
@@ -603,7 +612,7 @@ app.post('/api/save', function (request, response) {
 /**
  * 日志查询 页面
  */
-app.get('/log', function (request, response) {
+app.get('/log', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/tasklog.html'));
     } else {
@@ -614,7 +623,7 @@ app.get('/log', function (request, response) {
 /**
  * 日志列表
  */
-app.get('/api/logs', function (request, response) {
+app.get('/api/logs', function(request, response) {
     if (request.session.loggedin) {
         var fileList = fs.readdirSync(logPath, 'utf-8');
         var dirs = [];
@@ -651,7 +660,7 @@ app.get('/api/logs', function (request, response) {
 /**
  * 日志文件
  */
-app.get('/api/logs/:dir/:file', function (request, response) {
+app.get('/api/logs/:dir/:file', function(request, response) {
     if (request.session.loggedin) {
         let filePath;
         if (request.params.dir === '@') {
@@ -672,7 +681,7 @@ app.get('/api/logs/:dir/:file', function (request, response) {
 /**
  * 查看脚本 页面
  */
-app.get('/viewScripts', function (request, response) {
+app.get('/viewScripts', function(request, response) {
     if (request.session.loggedin) {
         response.sendFile(path.join(__dirname + '/public/viewScripts.html'));
     } else {
@@ -683,7 +692,7 @@ app.get('/viewScripts', function (request, response) {
 /**
  * 脚本列表
  */
-app.get('/api/scripts', function (request, response) {
+app.get('/api/scripts', function(request, response) {
     if (request.session.loggedin) {
         var fileList = fs.readdirSync(ScriptsPath, 'utf-8');
         var dirs = [];
@@ -699,7 +708,7 @@ app.get('/api/scripts', function (request, response) {
                 if (excludeRegExp.test(fileList[i])) {
                     continue;
                 }
-                
+
                 var dirMap = {
                     dirName: fileList[i],
                     files: fileListTmp
@@ -709,7 +718,7 @@ app.get('/api/scripts', function (request, response) {
                 if (excludeRegExp.test(fileList[i])) {
                     continue;
                 }
-                
+
                 rootFiles.push(fileList[i]);
             }
         }
@@ -730,7 +739,7 @@ app.get('/api/scripts', function (request, response) {
 /**
  * 脚本文件
  */
-app.get('/api/scripts/:dir/:file', function (request, response) {
+app.get('/api/scripts/:dir/:file', function(request, response) {
     if (request.session.loggedin) {
         let filePath;
         if (request.params.dir === '@') {
