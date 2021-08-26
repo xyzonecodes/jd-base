@@ -37,9 +37,9 @@
                 <button id="wrap" title="切换换行">切换换行</button>
                 <br/>
                 <button id="jd_list" class="cmd-btn" title="列出脚本">列出脚本</button>
-                <button id="jd_bean_sign" class="cmd-btn" title="京豆签到">京豆签到</button>
-                <button id="jd_bean_change" class="cmd-btn" title="资产变动通知">资产变动通知</button>
-                <button id="jd_cash_exchange" class="cmd-btn" title="领现金兑红包">领现金兑红包</button>
+                <button id="zx_bean_sign" class="cmd-btn" title="京豆签到">京豆签到</button>
+                <button id="zx_bean_change" class="cmd-btn" title="资产变动通知">资产变动通知</button>
+                <button id="zx_cash_exchange" class="cmd-btn" title="领现金兑红包">领现金兑红包</button>
                 <button id="jd_priceProtect" class="cmd-btn" title="京东保价">京东保价</button>
                 <button id="jd_blueCoin" class="cmd-btn" title="超市兑换">超市兑换</button>
                 <button id="git_pull" title="更新脚本">更新脚本</button>
@@ -61,10 +61,12 @@
         </div>
     </div>
     <script>
-        $.ajaxSetup({ cache: false });
+        $.ajaxSetup({
+            cache: false
+        });
 
-        $(document).ready(function () {
-            var timer=0;
+        $(document).ready(function() {
+            var timer = 0;
             var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                 lineNumbers: true,
                 lineWrapping: false,
@@ -86,8 +88,10 @@
                 editor.setValue('');
 
                 const jsName = this.id === 'jd_list' ? '' : this.id;
-                const cmd = jsName ? `bash jd ${jsName} now`: 'bash jd';
-                $.post('./runCmd', {cmd: cmd}, function (data) {
+                const cmd = jsName ? `bash jd ${jsName} now` : 'bash jd';
+                $.post('./runCmd', {
+                    cmd: cmd
+                }, function(data) {
                     editor.setValue(data.msg);
 
                     if (jsName) {
@@ -142,7 +146,9 @@
                 }
                 editor.setValue('');
 
-                $.post('./runCmd', { cmd }, function (data) {
+                $.post('./runCmd', {
+                    cmd
+                }, function(data) {
                     editor.setValue(data.msg);
 
                     clearInterval(timer);
@@ -173,7 +179,10 @@
                 editor.setValue('');
 
                 const cmd = `bash jd ${jdScript} now`;
-                $.post('./runCmd', {cmd: cmd, delay: 1000}, function (data) {
+                $.post('./runCmd', {
+                    cmd: cmd,
+                    delay: 1000
+                }, function(data) {
                     editor.setValue(data.msg);
 
                     //将光标和滚动条设置到文本区最下方
@@ -204,7 +213,7 @@
             }
 
             function getLog(jsName) {
-                $.get(`./runLog/${jsName}`, function (data) {
+                $.get(`./runLog/${jsName}`, function(data) {
                     if (data !== 'no logs') {
                         editor.setValue(data);
                     }
@@ -213,14 +222,13 @@
                 });
             }
 
-            $('#wrap').click(function () {
+            $('#wrap').click(function() {
                 var lineWrapping = editor.getOption('lineWrapping');
                 editor.setOption('lineWrapping', !lineWrapping);
             });
 
             $('#jd_list').trigger('click');
         });
-
     </script>
 
 </body>
